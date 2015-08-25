@@ -8,13 +8,14 @@ import hashlib
 import time
 
 
-
 def _generate_signature(data):
-    return hmac.new('b4a23f5e39b5929e0666ac5de94c89d1618a2916', data, hashlib.sha256).hexdigest()
+    return hmac.new('b4a23f5e39b5929e0666ac5de94c89d1618a2916', data,
+                    hashlib.sha256).hexdigest()
 
 
 def _generate_user_agent():
-    resolutions = ['720x1280', '320x480', '480x800', '1024x768', '1280x720', '768x1024', '480x320']
+    resolutions = ['720x1280', '320x480', '480x800', '1024x768', '1280x720',
+                   '768x1024', '480x320']
     versions = ['GT-N7000', 'SM-N9000', 'GT-I9220', 'GT-I9100']
     dpis = ['120', '160', '320', '240']
 
@@ -40,7 +41,6 @@ def _generate_user_agent():
 
 
 class InstagramSession(object):
-
     def __init__(self):
         self.guid = str(uuid.uuid1())
         self.device_id = 'android-{}'.format(self.guid)
@@ -65,7 +65,8 @@ class InstagramSession(object):
             urllib.quote_plus(data)
         )
 
-        r = self.session.post("https://instagram.com/api/v1/accounts/login/", payload)
+        r = self.session.post("https://instagram.com/api/v1/accounts/login/",
+                              payload)
         r_json = r.json()
         print r_json
 
@@ -82,7 +83,8 @@ class InstagramSession(object):
             "photo": open(filename, 'rb'),
         }
 
-        r = self.session.post("https://instagram.com/api/v1/media/upload/", data, files=files)
+        r = self.session.post("https://instagram.com/api/v1/media/upload/",
+                              data, files=files)
         r_json = r.json()
         print r_json
 
@@ -109,7 +111,8 @@ class InstagramSession(object):
             urllib.quote_plus(data)
         )
 
-        r = self.session.post("https://instagram.com/api/v1/media/configure/", payload)
+        r = self.session.post("https://instagram.com/api/v1/media/configure/",
+                              payload)
         r_json = r.json()
         print r_json
 
@@ -117,5 +120,3 @@ class InstagramSession(object):
             return False
 
         return True
-
-
